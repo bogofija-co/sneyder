@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Art Sneyder | Sneyder Riaño Hernández - Portafolio</title>
+    <meta name="description" content="Portafolio profesional de Sneyder Riaño Hernández (Art Sneyder). Diseñador gráfico, Motion Graphics, UI/UX y desarrollador creativo con más de 10 años de experiencia.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: {
+                            900: '#000000',
+                            800: '#0a0a0a',
+                            700: '#171717',
+                        },
+                        accent: {
+                            orange: '#f97316',
+                            hover: '#ea580c',
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-accent': 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #000000;
+            color: #f3f4f6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            /* Evita el highlight azul nativo en móviles al tocar botones */
+            -webkit-tap-highlight-color: transparent; 
+        }
+
+        /* --- PRELOADER STYLES --- */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100dvh; /* dvh corrige el bug de la barra de URL en móviles */
+            background-color: #000000;
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s ease;
+        }
+        #loader.loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .loader-logo {
+            width: 120px;
+            height: auto;
+            animation: pulse-loader 1.5s infinite ease-in-out;
+            filter: drop-shadow(0 0 15px rgba(249, 115, 22, 0.4));
+        }
+        @keyframes pulse-loader {
+            0% { transform: scale(0.9); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.7; }
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000000; }
+        ::-webkit-scrollbar-thumb { background: #171717; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #f97316; }
+
+        .font-heading { font-family: 'Poppins', sans-serif; }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #f97316 0%, #ff9d00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glass {
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .skill-bar-fill {
+            transform-origin: left;
+            transform: scaleX(0);
+            transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: transform;
+        }
+        .skill-bar-fill.active {
+            transform: scaleX(var(--progress));
+        }
+
+        .bg-shapes {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        .bg-shapes::before, .bg-shapes::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+        }
+        .bg-shapes::before {
+            width: 30vw; height: 30vw;
+            background: rgba(249, 115, 22, 0.15);
+            top: -10%; left: -10%;
+        }
+        .bg-shapes::after {
+            width: 20vw; height: 20vw;
+            background: rgba(234, 88, 12, 0.1);
+            bottom: -10%; right: -5%;
+        }
+
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            will-change: transform;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.3);
+        }
+        .btn-primary:active {
+            transform: translateY(1px); /* Feedback táctil */
+        }
+        
+        .card-hover {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+            will-change: transform;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            border-color: rgba(249, 115, 22, 0.4);
+        }
+
+        body.modal-open { overflow: hidden; }
+        .modal-overlay { opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content { transform: scale(0.95) translateY(20px); opacity: 0; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease; }
+        .modal-overlay.active .modal-content { transform: scale(1) translateY(0); opacity: 1; }
+
+        /* Mejora para el área interactiva de los enlaces móviles */
+        .mobile-link {
+            padding: 0.5rem 1rem;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body class="antialiased font-sans selection:bg-accent-orange selection:text-black">
+
+    <!-- Preloader -->
+    <div id="loader">
+        <img src="https://i.ibb.co/1GtSWCf3/logo-art-sneyder.png" alt="Art Sneyder Logo" class="loader-logo">
+    </div>
+
+    <header id="header" class="fixed top-0 left-0 w-full z-[50] transition-all duration-300 py-6">
+        <div class="container mx-auto px-6 lg:px-12 flex justify-between items-center relative z-[60]">
+            <a href="#home" class="flex items-center gap-3 relative group" aria-label="Inicio">
+                <img src="https://i.ibb.co/1GtSWCf3/logo-art-sneyder.png" alt="Art Sneyder Logo" class="h-8 md:h-10 w-auto transition-transform duration-300 group-hover:scale-105" loading="eager">
+            </a>
+
+            <nav class="hidden md:flex items-center gap-6 lg:gap-8">
+                <a href="#home" class="text-xs lg:text-sm font-medium text-gray-400 hover:text-white transition-colors">Inicio</a>
+                <a href="#about" class="text-xs lg:text-sm font-medium text-gray-400 hover:text-white transition-colors">Acerca de</a>
+                <a href="#services" class="text-xs lg:text-sm font-medium text-gray-400 hover:text-white transition-colors">Especialidades</a>
+                <a href="#education" class="text-xs lg:text-sm font-medium text-gray-400 hover:text-white transition-colors">Formación</a>
+                <a href="#experience" class="text-xs lg:text-sm font-medium text-gray-400 hover:text-white transition-colors">Experiencia</a>
+                <a href="#portfolio" class="text-xs lg:text-sm font-medium text-gray-400 hover:text-white transition-colors">Portafolio</a>
+                <a href="#contact" class="px-5 py-2.5 rounded-full text-xs lg:text-sm font-medium text-white bg-gradient-accent btn-primary">Contacto</a>
+            </nav>
+
+            <button id="mobile-menu-btn" class="md:hidden relative w-12 h-12 flex items-center justify-end text-gray-300 active:text-accent-orange focus:outline-none transition-transform duration-300 touch-manipulation" aria-label="Abrir menú" aria-expanded="false">
+                <i id="mobile-icon" class="fas fa-bars text-3xl transition-transform duration-300 pointer-events-none"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="fixed inset-0 h-[100dvh] bg-black/70 backdrop-blur-[10px] opacity-0 pointer-events-none transition-opacity duration-500 z-[55] overflow-y-auto">
+            <div class="min-h-full w-full flex flex-col items-center justify-center py-24 px-6 gap-6">
+                <a href="#home" class="text-3xl font-heading font-semibold text-white mobile-link active:text-accent-orange transition-colors transform translate-y-8 opacity-0 touch-manipulation">Inicio</a>
+                <a href="#about" class="text-3xl font-heading font-semibold text-white mobile-link active:text-accent-orange transition-colors transform translate-y-8 opacity-0 touch-manipulation">Acerca de</a>
+                <a href="#services" class="text-3xl font-heading font-semibold text-white mobile-link active:text-accent-orange transition-colors transform translate-y-8 opacity-0 touch-manipulation">Especialidades</a>
+                <a href="#education" class="text-3xl font-heading font-semibold text-white mobile-link active:text-accent-orange transition-colors transform translate-y-8 opacity-0 touch-manipulation">Formación</a>
+                <a href="#experience" class="text-3xl font-heading font-semibold text-white mobile-link active:text-accent-orange transition-colors transform translate-y-8 opacity-0 touch-manipulation">Experiencia</a>
+                <a href="#portfolio" class="text-3xl font-heading font-semibold text-white mobile-link active:text-accent-orange transition-colors transform translate-y-8 opacity-0 touch-manipulation">Portafolio</a>
+                <a href="#contact" class="text-3xl font-heading font-semibold text-gradient mobile-link active:opacity-70 transform translate-y-8 opacity-0 touch-manipulation mt-2">Contacto</a>
+                
+                <div class="flex gap-8 mt-8 transform translate-y-8 opacity-0 mobile-link">
+                    <a href="https://www.linkedin.com/in/artsneyder" target="_blank" rel="noopener noreferrer" class="text-gray-400 active:text-accent-orange text-3xl transition-colors touch-manipulation p-2"><i class="fab fa-linkedin-in pointer-events-none"></i></a>
+                    <a href="https://www.behance.net/art-sneyder" target="_blank" rel="noopener noreferrer" class="text-gray-400 active:text-accent-orange text-3xl transition-colors touch-manipulation p-2"><i class="fab fa-behance pointer-events-none"></i></a>
+                    <a href="https://www.instagram.com/sneyder.rh/" target="_blank" rel="noopener noreferrer" class="text-gray-400 active:text-accent-orange text-3xl transition-colors touch-manipulation p-2"><i class="fab fa-instagram pointer-events-none"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden border-b border-dark-700/50">
+            <div class="bg-shapes"></div>
+            <div class="container mx-auto px-6 lg:px-12 grid lg:grid-cols-2 gap-12 items-center relative z-10">
+                
+                <div class="order-2 lg:order-1 text-center lg:text-left reveal">
+                    <p class="text-accent-orange font-medium mb-4 tracking-wider uppercase text-sm flex items-center justify-center lg:justify-start gap-2">
+                        <span class="w-8 h-px bg-accent-orange"></span> Hola, Soy
+                    </p>
+                    <h1 class="text-5xl lg:text-7xl font-heading font-bold leading-tight mb-2 text-white">
+                        Art Sneyder
+                    </h1>
+                    <p class="text-xl text-gray-500 font-medium mb-6">Sneyder Riaño Hernández</p>
+                    
+                    <h2 class="text-2xl lg:text-3xl font-heading font-semibold text-gray-300 mb-6 h-[40px]">
+                        <span id="typewriter" class="text-gradient"></span>
+                    </h2>
+                    
+                    <p class="text-gray-400 text-base lg:text-lg max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed">
+                        Soy diseñador gráfico profesional con más de diez años de experiencia desarrollando soluciones visuales para marcas, empresas y campañas publicitarias. Me especializo en branding, publicidad, producción audiovisual, motion graphics, desarrollo web y experiencias digitales centradas en el usuario. Actualmente continúo fortaleciendo mis conocimientos mediante estudios profesionales en Animación Digital, integrando creatividad, tecnología e inteligencia artificial para crear experiencias visuales de alto impacto.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
+                        <a href="#portfolio" class="w-full sm:w-auto px-8 py-4 rounded-full text-white font-medium bg-gradient-accent btn-primary flex items-center justify-center gap-2">
+                            Ver Portafolio <i class="fas fa-arrow-right text-sm"></i>
+                        </a>
+                        <a href="#contact" class="w-full sm:w-auto px-8 py-4 rounded-full text-white font-medium border border-dark-700 hover:border-accent-orange hover:text-accent-orange active:bg-dark-800 transition-all flex items-center justify-center glass">
+                            Contáctame
+                        </a>
+                    </div>
+                </div>
+
+                <div class="order-1 lg:order-2 flex justify-center reveal delay-200 relative">
+                    <div class="relative w-72 h-72 lg:w-[450px] lg:h-[450px] group">
+                        <div class="absolute inset-0 bg-accent-orange rounded-full opacity-10 blur-[80px] group-hover:opacity-20 transition-opacity duration-700"></div>
+                        <div class="relative z-10 w-full h-full rounded-3xl overflow-hidden border border-dark-700 glass p-2">
+                            <img src="https://i.ibb.co/9mTDHttc/art-sneyder.png" alt="Sneyder Riaño Hernández" class="w-full h-full object-cover rounded-2xl filter grayscale contrast-125 hover:grayscale-0 transition-all duration-700" loading="eager" width="450" height="450">
+                        </div>
+                        
+                        <div class="absolute -top-4 -right-4 glass p-4 rounded-2xl z-20 animate-[bounce_4s_infinite] border border-dark-700">
+                            <i class="fas fa-wand-magic-sparkles text-2xl text-accent-orange"></i>
+                        </div>
+                        <div class="absolute -bottom-4 -left-4 glass p-4 rounded-2xl z-20 animate-[bounce_5s_infinite_reverse] border border-dark-700">
+                            <i class="fas fa-code text-2xl text-white"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="py-24 bg-dark-900 border-b border-dark-700/50 relative">
+            <div class="container mx-auto px-6 lg:px-12">
+                <div class="grid lg:grid-cols-2 gap-16 items-center mb-20">
+                    <div class="reveal">
+                        <div class="relative rounded-3xl overflow-hidden group border border-dark-700">
+                            <img src="https://i.ibb.co/mF9LzSjK/fotografo.jpg" alt="Art Sneyder Fotógrafo" class="w-full h-[550px] object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale hover:grayscale-0" loading="lazy">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/40 to-transparent opacity-80"></div>
+                            <div class="absolute bottom-8 left-8 right-8">
+                                <p class="text-accent-orange font-medium text-sm tracking-widest uppercase mb-2">Visión Creativa</p>
+                                <h3 class="text-2xl font-heading font-bold text-white">Integro estética, estrategia y tecnología</h3>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="reveal delay-200">
+                        <h2 class="text-4xl font-heading font-bold mb-2 text-white">Detrás del <span class="text-gradient">Diseño</span></h2>
+                        <div class="w-20 h-1 bg-accent-orange rounded-full mb-8"></div>
+                        
+                        <div class="space-y-6 text-gray-400 text-lg leading-relaxed">
+                            <p>
+                                Soy <strong class="text-white font-medium">Sneyder Riaño Hernández</strong>, conocido en el medio digital como Art Sneyder. Soy Profesional en Diseño Gráfico, graduado en el año 2016, y cuento con más de diez años de experiencia en la industria creativa.
+                            </p>
+                            <p>
+                                A lo largo de mi carrera, he desarrollado una profunda pasión por la intersección entre el arte visual y la tecnología. Mi objetivo principal es integrar diseño gráfico, motion graphics, desarrollo web, automatización e inteligencia artificial para crear soluciones digitales verdaderamente innovadoras y eficientes.
+                            </p>
+                            <p>
+                                Actualmente, me encuentro estudiando <strong class="text-white">Animación Digital</strong> a nivel profesional, buscando expandir mis fronteras narrativas y técnicas para ofrecer resultados audiovisuales de vanguardia que conecten emocionalmente con las audiencias.
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-6 mt-10 pt-10 border-t border-dark-700">
+                            <div>
+                                <h4 class="text-white font-heading font-semibold mb-2">Educación Base</h4>
+                                <p class="text-gray-500 text-sm">Profesional en Diseño Gráfico (2016)</p>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-heading font-semibold mb-2">Enfoque Actual</h4>
+                                <p class="text-gray-500 text-sm">Animación Digital & IA (En curso)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 reveal">
+                    <div class="glass border border-dark-700 p-8 rounded-3xl text-center card-hover">
+                        <h3 class="text-4xl lg:text-5xl font-heading font-bold text-white mb-2"><span class="counter" data-target="10">0</span>+</h3>
+                        <p class="text-gray-500 text-sm uppercase tracking-wide font-medium">Años de Exp.</p>
+                    </div>
+                    <div class="glass border border-dark-700 p-8 rounded-3xl text-center card-hover delay-100">
+                        <h3 class="text-4xl lg:text-5xl font-heading font-bold text-white mb-2"><span class="counter" data-target="250">0</span>+</h3>
+                        <p class="text-gray-500 text-sm uppercase tracking-wide font-medium">Proyectos</p>
+                    </div>
+                    <div class="glass border border-dark-700 p-8 rounded-3xl text-center card-hover delay-200">
+                        <h3 class="text-4xl lg:text-5xl font-heading font-bold text-white mb-2"><span class="counter" data-target="150">0</span>+</h3>
+                        <p class="text-gray-500 text-sm uppercase tracking-wide font-medium">Clientes Felices</p>
+                    </div>
+                    <div class="glass border border-dark-700 p-8 rounded-3xl text-center card-hover delay-300">
+                        <h3 class="text-4xl lg:text-5xl font-heading font-bold text-white mb-2"><span class="counter" data-target="5000">0</span>+</h3>
+                        <p class="text-gray-500 text-sm uppercase tracking-wide font-medium">Diseños</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="py-24 bg-dark-800 border-b border-dark-700/50">
+            <div class="container mx-auto px-6 lg:px-12">
+                <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                    <h2 class="text-4xl font-heading font-bold mb-4 text-white">Áreas de <span class="text-gradient">Especialidad</span></h2>
+                    <p class="text-gray-400 text-lg">Soluciones integrales que combinan creatividad, técnica y tecnología de vanguardia.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                    <div class="glass border border-dark-700 p-6 rounded-3xl card-hover group reveal delay-[0ms]">
+                        <div class="w-12 h-12 bg-dark-900 border border-dark-700 rounded-xl flex items-center justify-center text-accent-orange text-xl mb-5 transition-colors group-hover:bg-accent-orange group-hover:text-white">
+                            <i class="fas fa-pen-nib"></i>
+                        </div>
+                        <h3 class="text-lg font-heading font-semibold text-white mb-2">Diseño Gráfico</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Creación de piezas visuales impactantes para medios impresos y digitales.</p>
+                    </div>
+                    <div class="glass border border-dark-700 p-6 rounded-3xl card-hover group reveal delay-[100ms]">
+                        <div class="w-12 h-12 bg-dark-900 border border-dark-700 rounded-xl flex items-center justify-center text-white text-xl mb-5 transition-colors group-hover:bg-accent-orange group-hover:text-white">
+                            <i class="fas fa-fingerprint"></i>
+                        </div>
+                        <h3 class="text-lg font-heading font-semibold text-white mb-2">Branding</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Construcción y posicionamiento de marcas sólidas y memorables.</p>
+                    </div>
+                    <div class="glass border border-dark-700 p-6 rounded-3xl card-hover group reveal delay-[200ms]">
+                        <div class="w-12 h-12 bg-dark-900 border border-dark-700 rounded-xl flex items-center justify-center text-accent-orange text-xl mb-5 transition-colors group-hover:bg-accent-orange group-hover:text-white">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h3 class="text-lg font-heading font-semibold text-white mb-2">Identidad Corporativa</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Desarrollo de sistemas visuales coherentes para la comunicación empresarial.</p>
+                    </div>
+                    <div class="glass border border-dark-700 p-6 rounded-3xl card-hover group reveal delay-[300ms]">
+                        <div class="w-12 h-12 bg-dark-900 border border-dark-700 rounded-xl flex items-center justify-center text-white text-xl mb-5 transition-colors group-hover:bg-accent-orange group-hover:text-white">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <h3 class="text-lg font-heading font-semibold text-white mb-2">Motion Graphics</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Animación 2D y gráficos en movimiento para narrativas dinámicas.</p>
+                    </div>
+                    <div class="glass border border-dark-700 p-6 rounded-3xl card-hover group reveal delay-[400ms]">
+                        <div class="w-12 h-12 bg-dark-900 border border-dark-700 rounded-xl flex items-center justify-center text-accent-orange text-xl mb-5 transition-colors group-hover:bg-accent-orange group-hover:text-white">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h3 class="text-lg font-heading font-semibold text-white mb-2">Prod. Audiovisual</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Dirección, grabación y edición profesional de piezas en video.</p>
+                    </div>
+                    <div class="glass border border-dark-700 p-6 rounded-3xl card-hover group reveal delay-[0ms]">
+                        <div class="w-12 h-12 bg-dark-900 border border-dark-700 rounded-xl flex items-center justify-center text-white text-xl mb-5 transition-colors group-hover:bg-accent-orange group-hover:text-white">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h3 class="text-lg font-heading font-semibold text-white mb-2">Diseño Editorial</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Maquetación impecable de revistas, libros y publicaciones corporativas.</p>
+                    </div>
+                    <div class="glass border border-dark-700 p-6 rounded-3xl card-hover group reveal delay-[100ms]">
+                        <div class="w-12 h-12 bg-dark-900 border border-dark-700 rounded-xl flex items-center justify-center text-accent-orange text-xl mb-5 transition-colors group-hover:bg-accent-orange group-hover:text-white">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <h3 class="text-lg font-heading font-semibold text-white mb-2">UX/UI</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Diseño de interfaces intuitivas centradas en la experiencia del usuario.</p>
+                    </div>
+                    <div class="glass border border-dark-700 p-6 rounded-3xl card-hover group reveal delay-[200ms]">
+                        <div class="w-12 h-12 bg-dark-900 border border-dark-700 rounded-xl flex items-center justify-center text-white text-xl mb-5 transition-colors group-hover:bg-accent-orange group-hover:text-white">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="text-lg font-heading font-semibold text-white mb-2">Desarrollo Frontend</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Implementación web mediante HTML5, CSS3, JS y frameworks modernos.</p>
+                    </div>
+                    <div class="glass border border-dark-700 p-6 rounded-3xl card-hover group reveal delay-[300ms]">
+                        <div class="w-12 h-12 bg-dark-900 border border-dark-700 rounded-xl flex items-center justify-center text-accent-orange text-xl mb-5 transition-colors group-hover:bg-accent-orange group-hover:text-white">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3 class="text-lg font-heading font-semibold text-white mb-2">Automatización (IA)</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Optimización de flujos de trabajo utilizando herramientas Low-Code e IA.</p>
+                    </div>
+                    <div class="glass border border-dark-700 p-6 rounded-3xl card-hover group reveal delay-[400ms]">
+                        <div class="w-12 h-12 bg-dark-900 border border-dark-700 rounded-xl flex items-center justify-center text-white text-xl mb-5 transition-colors group-hover:bg-accent-orange group-hover:text-white">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3 class="text-lg font-heading font-semibold text-white mb-2">Fotografía Comercial</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Captura y retoque profesional para productos y campañas publicitarias.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="py-24 bg-dark-900 border-b border-dark-700/50">
+            <div class="container mx-auto px-6 lg:px-12">
+                <div class="grid lg:grid-cols-12 gap-16">
+                    
+                    <div class="lg:col-span-5 reveal">
+                        <h2 class="text-3xl font-heading font-bold mb-10 text-white">Formación <span class="text-gradient">Profesional</span></h2>
+                        
+                        <div class="space-y-8">
+                            <div class="relative pl-8 border-l border-dark-700 before:content-[''] before:absolute before:w-4 before:h-4 before:bg-dark-900 before:border-2 before:border-accent-orange before:rounded-full before:left-[-8px] before:top-1">
+                                <span class="text-accent-orange text-xs font-bold tracking-widest uppercase">Julio 2, 2016</span>
+                                <h3 class="text-xl font-heading font-semibold text-white mt-2">Profesional en Diseño Gráfico</h3>
+                                <p class="text-gray-400 text-sm mb-4">Institución: Suramérica</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-dark-800 border border-dark-700 text-gray-400 text-xs rounded-full">Comunicación visual</span>
+                                    <span class="px-3 py-1 bg-dark-800 border border-dark-700 text-gray-400 text-xs rounded-full">Publicidad</span>
+                                    <span class="px-3 py-1 bg-dark-800 border border-dark-700 text-gray-400 text-xs rounded-full">Branding</span>
+                                    <span class="px-3 py-1 bg-dark-800 border border-dark-700 text-gray-400 text-xs rounded-full">Diseño editorial</span>
+                                    <span class="px-3 py-1 bg-dark-800 border border-dark-700 text-gray-400 text-xs rounded-full">Creatividad</span>
+                                </div>
+                            </div>
+
+                            <div class="relative pl-8 border-l border-dark-700 before:content-[''] before:absolute before:w-4 before:h-4 before:bg-accent-orange before:rounded-full before:left-[-8px] before:top-1 before:animate-pulse">
+                                <span class="text-white text-xs font-bold tracking-widest uppercase">Actualidad</span>
+                                <h3 class="text-xl font-heading font-semibold text-white mt-2">Animación Digital</h3>
+                                <p class="text-gray-400 text-sm mb-3">Cursando formación profesional especializada.</p>
+                                <p class="text-gray-500 text-sm leading-relaxed mb-4">Esta formación fortalece conocimientos en: Motion Graphics, Producción audiovisual, Animación 2D, Storytelling, Composición, Diseño para medios digitales y Principios de animación.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-7 reveal delay-200">
+                        <h2 class="text-3xl font-heading font-bold mb-10 text-white">Certificaciones <span class="text-gradient">Recientes</span></h2>
+                        
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div class="glass border border-dark-700 p-5 rounded-2xl hover:border-accent-orange transition-colors group flex flex-col">
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="w-8 h-8 bg-dark-900 border border-dark-700 rounded-lg flex items-center justify-center text-accent-orange text-sm">
+                                        <i class="fas fa-robot"></i>
+                                    </div>
+                                    <span class="text-gray-500 text-[10px] uppercase tracking-wider font-semibold">Jun 5, 2026</span>
+                                </div>
+                                <h3 class="text-white font-heading font-semibold text-sm mb-1">Curso de Gemini</h3>
+                                <p class="text-gray-400 text-xs mb-3">Platzi • 14 horas</p>
+                                <p class="text-gray-500 text-xs leading-relaxed group-hover:text-gray-300 transition-colors mt-auto">
+                                    Inteligencia Artificial, Gemini, Prompts, Automatización, Modelos de lenguaje.
+                                </p>
+                            </div>
+
+                            <div class="glass border border-dark-700 p-5 rounded-2xl hover:border-accent-orange transition-colors group flex flex-col">
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="w-8 h-8 bg-dark-900 border border-dark-700 rounded-lg flex items-center justify-center text-white text-sm">
+                                        <i class="fas fa-network-wired"></i>
+                                    </div>
+                                    <span class="text-gray-500 text-[10px] uppercase tracking-wider font-semibold">Jun 16, 2026</span>
+                                </div>
+                                <h3 class="text-white font-heading font-semibold text-sm mb-1">Automatizaciones Low-Code n8n</h3>
+                                <p class="text-gray-400 text-xs mb-3">Platzi • 7 horas</p>
+                                <p class="text-gray-500 text-xs leading-relaxed group-hover:text-gray-300 transition-colors mt-auto">
+                                    Automatización de procesos, Integración de aplicaciones, Workflows, IA, Low-Code.
+                                </p>
+                            </div>
+
+                            <div class="glass border border-dark-700 p-5 rounded-2xl hover:border-accent-orange transition-colors group flex flex-col relative overflow-hidden">
+                                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-accent opacity-50"></div>
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="w-8 h-8 bg-dark-900 border border-dark-700 rounded-lg flex items-center justify-center text-accent-orange text-sm animate-pulse">
+                                        <i class="fas fa-brain"></i>
+                                    </div>
+                                    <span class="text-accent-orange text-[10px] uppercase tracking-wider font-bold">En curso</span>
+                                </div>
+                                <h3 class="text-white font-heading font-semibold text-sm mb-1">Claude.ai - Curso Avanzado</h3>
+                                <p class="text-gray-400 text-xs mb-3">Formación Actual</p>
+                                <p class="text-gray-500 text-xs leading-relaxed group-hover:text-gray-300 transition-colors mt-auto">
+                                    Exploración de modelos Claude, ingeniería de prompts avanzada, análisis de datos y flujos conversacionales.
+                                </p>
+                            </div>
+
+                            <div class="glass border border-dark-700 p-5 rounded-2xl hover:border-accent-orange transition-colors group flex flex-col">
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="w-8 h-8 bg-dark-900 border border-dark-700 rounded-lg flex items-center justify-center text-white text-sm">
+                                        <i class="fas fa-award"></i>
+                                    </div>
+                                    <span class="text-gray-500 text-[10px] uppercase tracking-wider font-semibold">May 12, 2026</span>
+                                </div>
+                                <h3 class="text-white font-heading font-semibold text-sm mb-1 leading-tight">Certificado Competencia Laboral</h3>
+                                <p class="text-gray-400 text-xs mb-3 line-clamp-2" title="Norma: Editar imágenes de acuerdo con parámetros de comunicación y métodos de diseño.">SENA • Avanzado: Edición de imágenes y parámetros de diseño.</p>
+                                <div class="flex flex-wrap gap-1.5 mt-auto">
+                                    <span class="text-gray-500 text-[10px] border border-dark-700 rounded px-1.5 py-0.5">Edición prof.</span>
+                                    <span class="text-gray-500 text-[10px] border border-dark-700 rounded px-1.5 py-0.5">Proc. visual</span>
+                                    <span class="text-gray-500 text-[10px] border border-dark-700 rounded px-1.5 py-0.5">Com. gráfica</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="py-24 bg-dark-800 border-b border-dark-700/50">
+            <div class="container mx-auto px-6 lg:px-12">
+                <div class="grid lg:grid-cols-2 gap-16">
+                    
+                    <div class="reveal">
+                        <h2 class="text-3xl font-heading font-bold mb-10 text-white">Trayectoria <span class="text-gradient">Profesional</span></h2>
+                        <div class="relative border-l border-dark-700 ml-3 pl-8 space-y-10">
+                            
+                            <div class="relative group">
+                                <div class="absolute -left-[39px] top-1 w-5 h-5 rounded-full bg-dark-900 border-2 border-accent-orange group-hover:bg-accent-orange transition-colors"></div>
+                                <span class="text-accent-orange text-xs font-bold tracking-widest uppercase">Oct 2018 – Actualidad</span>
+                                <h3 class="text-xl font-heading font-semibold text-white mt-1">Diseñador Gráfico / Semi-Sr. / Mid-level</h3>
+                                <h4 class="text-gray-400 text-sm mb-3">GRUPO PRS SAS</h4>
+                                <ul class="text-gray-500 text-sm leading-relaxed space-y-1 list-disc list-inside">
+                                    <li>N8N: Desarrollo de flujos corporativos avanzados e integraciones de sistemas.</li>
+                                    <li>Creación de chatbots en Facebook e Instagram enfocados en UX.</li>
+                                    <li>Programación y maquetación web estructurada bajo estándares UI.</li>
+                                    <li> Videos y piezas gráficas de alto impacto con Photoshop y Corel.</li>
+                                    <li>Análisis de marketing y actualización del catálogo digital.</li>
+                                    <li>Seguimiento técnico al equipo de asesores para optimizar ventas.</li>
+                                </ul>
+                            </div>
+
+                            <div class="relative group">
+                                <div class="absolute -left-[39px] top-1 w-5 h-5 rounded-full bg-dark-900 border-2 border-dark-700 group-hover:border-white transition-colors"></div>
+                                <span class="text-gray-400 text-xs font-bold tracking-widest uppercase">Oct 2016 – Abr 2018</span>
+                                <h3 class="text-xl font-heading font-semibold text-white mt-1">Diseñador Gráfico</h3>
+                                <h4 class="text-gray-400 text-sm mb-3">Aurifarma</h4>
+                                <ul class="text-gray-500 text-sm leading-relaxed space-y-1 list-disc list-inside">
+                                    <li>Diseño de empaques, etiquetas y material POP.</li>
+                                    <li>Desarrollo de piezas gráficas para comunicación interna.</li>
+                                    <li>Manejo avanzado de Adobe Illustrator y Photoshop.</li>
+                                </ul>
+                            </div>
+
+                            <div class="relative group">
+                                <div class="absolute -left-[39px] top-1 w-5 h-5 rounded-full bg-dark-900 border-2 border-dark-700 group-hover:border-white transition-colors"></div>
+                                <span class="text-gray-400 text-xs font-bold tracking-widest uppercase">May 2014 – Jun 2016</span>
+                                <h3 class="text-xl font-heading font-semibold text-white mt-1">Auxiliar de marketing y publicidad</h3>
+                                <h4 class="text-gray-400 text-sm mb-3">Grupo Éxito</h4>
+                                <ul class="text-gray-500 text-sm leading-relaxed space-y-1 list-disc list-inside">
+                                    <li>Creación de piezas gráficas y videos de alto impacto para redes sociales.</li>
+                                    <li>Análisis de ideas creativas y tendencias para campañas publicitarias digitales.</li>
+                                    <li>Actualización constante de la oferta de productos en el catálogo digital de la empresa</li>
+                                </ul>
+                            </div>
+
+                            <div class="relative group">
+                                <div class="absolute -left-[39px] top-1 w-5 h-5 rounded-full bg-dark-900 border-2 border-dark-700 group-hover:border-white transition-colors"></div>
+                                <span class="text-gray-400 text-xs font-bold tracking-widest uppercase">Jul 2015 – Dic 2015</span>
+                                <h3 class="text-xl font-heading font-semibold text-white mt-1">Auxiliar de Diseño Gráfico</h3>
+                                <h4 class="text-gray-400 text-sm mb-2">Diafragma LJDA (Práctica Profesional)</h4>
+                                <ul class="text-gray-500 text-sm leading-relaxed space-y-1 list-disc list-inside">
+                                    <li>Desarrollo de campañas publicitarias y diseño de piezas.</li>
+                                    <li>Producción de material visual para grandes empresas.</li>
+                                    <li>Apoyo comercial y gestión de ventas.</li>
+                                </ul>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="reveal delay-200">
+                        <h2 class="text-3xl font-heading font-bold mb-10 text-white">Habilidades <span class="text-gradient">Técnicas</span></h2>
+                        <div class="space-y-5 bg-dark-900 border border-dark-700 p-8 rounded-3xl">
+                            
+                            <div class="skill-item">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-white text-sm font-medium">CorelDRAW</span>
+                                    <span class="text-accent-orange text-sm font-heading font-bold">100%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-accent skill-bar-fill rounded-full" style="--progress: 1;"></div></div>
+                            </div>
+
+                            <div class="skill-item">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-white text-sm font-medium">Adobe Photoshop</span>
+                                    <span class="text-accent-orange text-sm font-heading font-bold">100%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-accent skill-bar-fill rounded-full" style="--progress: 1;"></div></div>
+                            </div>
+
+                            <div class="skill-item">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-white text-sm font-medium">Adobe After Effects</span>
+                                    <span class="text-accent-orange text-sm font-heading font-bold">100%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-accent skill-bar-fill rounded-full" style="--progress: 1;"></div></div>
+                            </div>
+
+                            <div class="skill-item">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-white text-sm font-medium">Adobe Premiere Pro</span>
+                                    <span class="text-accent-orange text-sm font-heading font-bold">100%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-accent skill-bar-fill rounded-full" style="--progress: 1;"></div></div>
+                            </div>
+
+                            <div class="skill-item">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-white text-sm font-medium">Adobe Illustrator</span>
+                                    <span class="text-accent-orange text-sm font-heading font-bold">94%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-800 rounded-full overflow-hidden"><div class="h-full bg-gradient-accent skill-bar-fill rounded-full" style="--progress: 0.94;"></div></div>
+                            </div>
+
+                            <div class="skill-item pt-2 border-t border-dark-700">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-white text-sm font-medium">Figma</span>
+                                    <span class="text-gray-400 text-sm font-heading">90%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-800 rounded-full overflow-hidden"><div class="h-full bg-white skill-bar-fill rounded-full" style="--progress: 0.90;"></div></div>
+                            </div>
+
+                            <div class="skill-item">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-white text-sm font-medium">HTML5</span>
+                                    <span class="text-gray-400 text-sm font-heading">90%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-800 rounded-full overflow-hidden"><div class="h-full bg-white skill-bar-fill rounded-full" style="--progress: 0.90;"></div></div>
+                            </div>
+
+                            <div class="skill-item">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-white text-sm font-medium">CSS3</span>
+                                    <span class="text-gray-400 text-sm font-heading">90%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-800 rounded-full overflow-hidden"><div class="h-full bg-white skill-bar-fill rounded-full" style="--progress: 0.90;"></div></div>
+                            </div>
+
+                            <div class="skill-item">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-white text-sm font-medium">JavaScript</span>
+                                    <span class="text-gray-400 text-sm font-heading">85%</span>
+                                </div>
+                                <div class="h-1.5 w-full bg-dark-800 rounded-full overflow-hidden"><div class="h-full bg-white skill-bar-fill rounded-full" style="--progress: 0.85;"></div></div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="py-24 bg-dark-900 border-b border-dark-700/50">
+            <div class="container mx-auto px-6 lg:px-12">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 reveal">
+                    <div class="max-w-xl mb-6 md:mb-0">
+                        <h2 class="text-4xl font-heading font-bold mb-4 text-white">Trabajos <span class="text-gradient">Destacados</span></h2>
+                        <p class="text-gray-400 text-lg">Una selección de proyectos recientes aplicando diseño, branding y tecnologías web.</p>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-2">
+                        <button class="filter-btn active px-5 py-2 rounded-full text-sm font-medium bg-white text-black transition-colors touch-manipulation" data-filter="all">Todos</button>
+                        <button class="filter-btn px-5 py-2 rounded-full text-sm font-medium border border-dark-700 text-gray-400 hover:text-white hover:border-accent-orange transition-colors touch-manipulation" data-filter="identidad">Identidad</button>
+                        <button class="filter-btn px-5 py-2 rounded-full text-sm font-medium border border-dark-700 text-gray-400 hover:text-white hover:border-accent-orange transition-colors touch-manipulation" data-filter="uiux">UX/UI</button>
+                        <button class="filter-btn px-5 py-2 rounded-full text-sm font-medium border border-dark-700 text-gray-400 hover:text-white hover:border-accent-orange transition-colors touch-manipulation" data-filter="photo">Fotografía</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
+                    <!-- Dinámico via JS -->
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 bg-black border-b border-dark-700/50 overflow-hidden relative">
+            <div class="container mx-auto px-6 lg:px-12 text-center reveal">
+                <p class="text-sm text-gray-500 uppercase tracking-widest font-semibold mb-8">Tecnologías y Herramientas que domino</p>
+                <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-70">
+                    <div class="flex flex-col items-center gap-2 group hover:text-accent-orange transition-colors text-gray-400"><i class="fas fa-bezier-curve text-3xl"></i><span class="text-xs">CorelDRAW</span></div>
+                    <div class="flex flex-col items-center gap-2 group hover:text-accent-orange transition-colors text-gray-400"><i class="fab fa-adobe text-3xl"></i><span class="text-xs">Photoshop</span></div>
+                    <div class="flex flex-col items-center gap-2 group hover:text-accent-orange transition-colors text-gray-400"><i class="fab fa-adobe text-3xl"></i><span class="text-xs">Illustrator</span></div>
+                    <div class="flex flex-col items-center gap-2 group hover:text-accent-orange transition-colors text-gray-400"><i class="fas fa-film text-3xl"></i><span class="text-xs">After Effects</span></div>
+                    <div class="flex flex-col items-center gap-2 group hover:text-accent-orange transition-colors text-gray-400"><i class="fas fa-video text-3xl"></i><span class="text-xs">Premiere</span></div>
+                    <div class="flex flex-col items-center gap-2 group hover:text-accent-orange transition-colors text-gray-400"><i class="fab fa-figma text-3xl"></i><span class="text-xs">Figma</span></div>
+                    <div class="flex flex-col items-center gap-2 group hover:text-accent-orange transition-colors text-gray-400"><i class="fab fa-html5 text-3xl"></i><span class="text-xs">HTML5</span></div>
+                    <div class="flex flex-col items-center gap-2 group hover:text-accent-orange transition-colors text-gray-400"><i class="fab fa-css3-alt text-3xl"></i><span class="text-xs">CSS3</span></div>
+                    <div class="flex flex-col items-center gap-2 group hover:text-accent-orange transition-colors text-gray-400"><i class="fab fa-js text-3xl"></i><span class="text-xs">JavaScript</span></div>
+                    <div class="flex flex-col items-center gap-2 group hover:text-accent-orange transition-colors text-gray-400"><i class="fab fa-git-alt text-3xl"></i><span class="text-xs">Git</span></div>
+                    <div class="flex flex-col items-center gap-2 group hover:text-accent-orange transition-colors text-gray-400"><i class="fab fa-github text-3xl"></i><span class="text-xs">GitHub</span></div>
+                    <div class="flex flex-col items-center gap-2 group hover:text-accent-orange transition-colors text-gray-400"><i class="fas fa-network-wired text-3xl"></i><span class="text-xs">n8n</span></div>
+                    <div class="flex flex-col items-center gap-2 group hover:text-accent-orange transition-colors text-gray-400"><i class="fas fa-wand-magic-sparkles text-3xl"></i><span class="text-xs">Gemini</span></div>
+                    <div class="flex flex-col items-center gap-2 group hover:text-accent-orange transition-colors text-gray-400"><i class="fas fa-robot text-3xl"></i><span class="text-xs">ChatGPT</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-24 relative overflow-hidden bg-dark-900">
+            <div class="container mx-auto px-6 lg:px-12">
+                <div class="grid lg:grid-cols-2 gap-16">
+                    
+                    <div class="reveal">
+                        <h2 class="text-5xl font-heading font-bold mb-6 text-white">Trabajemos <span class="text-gradient">Juntos</span></h2>
+                        <p class="text-gray-400 text-lg mb-10 leading-relaxed">
+                            ¿Tienes un proyecto en mente o buscas elevar la identidad visual de tu marca integrando las últimas tecnologías? Hablemos.
+                        </p>
+                        
+                        <div class="space-y-6 mb-10">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 glass border border-dark-700 rounded-full flex items-center justify-center text-accent-orange">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500 uppercase tracking-wider">Correo Electrónico</p>
+                                    <a href="mailto:bogofija@gmail.com" class="text-white font-medium hover:text-accent-orange transition-colors">bogofija@gmail.com</a>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 glass border border-dark-700 rounded-full flex items-center justify-center text-white">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500 uppercase tracking-wider">Ubicación</p>
+                                    <p class="text-white font-medium">Bogotá, Colombia</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-8 border-t border-dark-700">
+                            <p class="text-sm text-gray-500 uppercase tracking-wider mb-4">Encuéntrame en</p>
+                            <div class="flex flex-wrap gap-4">
+                                <a href="https://www.linkedin.com/in/artsneyder" target="_blank" rel="noopener noreferrer" class="w-10 h-10 glass border border-dark-700 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-accent-orange hover:border-accent-orange transition-all duration-300 transform hover:-translate-y-1" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="https://www.behance.net/art-sneyder" target="_blank" rel="noopener noreferrer" class="w-10 h-10 glass border border-dark-700 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-accent-orange hover:border-accent-orange transition-all duration-300 transform hover:-translate-y-1" aria-label="Behance"><i class="fab fa-behance"></i></a>
+                                <a href="https://vimeo.com/artsneyder" target="_blank" rel="noopener noreferrer" class="w-10 h-10 glass border border-dark-700 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-accent-orange hover:border-accent-orange transition-all duration-300 transform hover:-translate-y-1" aria-label="Vimeo"><i class="fab fa-vimeo-v"></i></a>
+                                <a href="https://github.com/artsneyderdiseno-droid" target="_blank" rel="noopener noreferrer" class="w-10 h-10 glass border border-dark-700 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-accent-orange hover:border-accent-orange transition-all duration-300 transform hover:-translate-y-1" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                                <a href="https://www.instagram.com/sneyder.rh/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 glass border border-dark-700 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-accent-orange hover:border-accent-orange transition-all duration-300 transform hover:-translate-y-1" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                                <a href="https://www.facebook.com/artsneyder" target="_blank" rel="noopener noreferrer" class="w-10 h-10 glass border border-dark-700 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-accent-orange hover:border-accent-orange transition-all duration-300 transform hover:-translate-y-1" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reveal delay-200">
+                        <form id="contact-form" class="glass border border-dark-700 p-8 md:p-10 rounded-3xl" onsubmit="handleFormSubmit(event);">
+                            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-400 mb-2">Nombre Completo</label>
+                                    <input type="text" id="form-name" required class="w-full bg-dark-900 border border-dark-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent-orange transition-colors placeholder-gray-600" placeholder="Ej. Juan Pérez">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-400 mb-2">Empresa</label>
+                                    <input type="text" id="form-company" class="w-full bg-dark-900 border border-dark-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent-orange transition-colors placeholder-gray-600" placeholder="Nombre de tu marca">
+                                </div>
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-400 mb-2">Correo Electrónico</label>
+                                    <input type="email" id="form-email" required class="w-full bg-dark-900 border border-dark-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent-orange transition-colors placeholder-gray-600" placeholder="hola@empresa.com">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-400 mb-2">Teléfono</label>
+                                    <input type="tel" id="form-phone" class="w-full bg-dark-900 border border-dark-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent-orange transition-colors placeholder-gray-600" placeholder="+57 300 000 0000">
+                                </div>
+                            </div>
+                            <div class="mb-8">
+                                <label class="block text-sm font-medium text-gray-400 mb-2">Mensaje del Proyecto</label>
+                                <textarea required id="form-message" rows="4" class="w-full bg-dark-900 border border-dark-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent-orange transition-colors placeholder-gray-600 resize-none" placeholder="Cuéntame sobre tu idea..."></textarea>
+                            </div>
+                            
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <button type="submit" class="flex-1 py-4 rounded-xl text-white font-medium bg-gradient-accent btn-primary flex items-center justify-center gap-2">
+                                    Enviar Mensaje <i class="fas fa-paper-plane text-sm"></i>
+                                </button>
+                                <button type="button" onclick="sendWhatsApp(event)" class="flex-1 py-4 rounded-xl text-white font-medium bg-[#25D366] hover:bg-[#128C7E] transition-colors flex items-center justify-center gap-2 shadow-lg shadow-green-900/10 active:scale-[0.98]">
+                                    <i class="fab fa-whatsapp text-lg"></i> Vía WhatsApp
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-16 px-6 bg-black border-t border-dark-700 text-center relative z-10"> 
+        <div class="container mx-auto">
+            
+            <p class="text-sm font-heading text-gray-500 uppercase tracking-widest mb-6">Familia BOGO</p>
+            
+            <div class="flex flex-wrap items-center justify-center gap-6 md:gap-8 mb-12 max-w-3xl mx-auto">
+                <a href="https://www.instagram.com/bogofija/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 transition-all hover:scale-110 duration-300">
+                    <img src="https://i.ibb.co/99R1NsRX/Logo-Bogofija-2021.png" alt="Bogofija" class="h-8 md:h-10 w-auto object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                </a>
+                <a href="https://bogochicas.netlify.app/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 transition-all hover:scale-110 duration-300">
+                    <img src="https://i.ibb.co/qLYvYCrT/Logotipos-Eventos.png" alt="Bogochicas" class="h-8 md:h-10 w-auto object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
+                </a>
+                <a href="https://bogoruta.netlify.app/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 transition-all hover:scale-110 duration-300">
+                    <img src="https://i.ibb.co/cK1KpZbK/bogoruta.png" alt="Bogoruta" class="h-8 md:h-10 w-auto object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
+                </a>
+                <a href="https://bogomtb.netlify.app/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 transition-all hover:scale-110 duration-300">
+                    <img src="https://i.ibb.co/Q3FqNsjH/bogo-MTB.png" alt="Bogo MTB" class="h-8 md:h-10 w-auto object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
+                </a>
+                <a href="https://www.instagram.com/bogopublica/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 transition-all hover:scale-110 duration-300">
+                    <img src="https://i.ibb.co/mCWrvnXQ/logo-Bogo-Publica.png" alt="Bogo Pública" class="h-8 md:h-10 w-auto object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
+                </a>
+                <a href="https://www.instagram.com/bogofixie/" target="_blank" rel="noopener noreferrer" class="hover:opacity-100 transition-all hover:scale-110 duration-300">
+                    <img src="https://i.ibb.co/RGSwjNpd/bogofixie.png" alt="Bogo Fixie" class="h-8 md:h-10 w-auto object-contain opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
+                </a>
+            </div>
+
+            <div class="flex justify-center mb-6">
+                <img src="https://i.ibb.co/1GtSWCf3/logo-art-sneyder.png" alt="Art Sneyder Logo" class="h-10 w-auto opacity-70 filter grayscale" loading="lazy">
+            </div>
+
+            <p class="text-gray-500 text-sm mb-2">&copy; 2026 Art Sneyder — Sneyder Riaño Hernández.</p>
+            <p class="text-gray-600 text-xs">Diseñado y desarrollado por Art Sneyder.</p>
+        </div>
+    </footer>
+
+    <div id="project-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 modal-overlay">
+        <div class="absolute inset-0 bg-dark-900/95 backdrop-blur-md" onclick="closeModal()"></div>
+        <div class="bg-dark-900 border border-dark-700 w-full max-w-4xl max-h-[90vh] rounded-3xl shadow-2xl relative z-10 flex flex-col modal-content overflow-hidden">
+            
+            <button onclick="closeModal()" class="absolute top-4 right-4 w-10 h-10 bg-black/50 hover:bg-accent-orange active:bg-accent-orange text-white rounded-full flex items-center justify-center backdrop-blur-md transition-colors z-20 touch-manipulation" aria-label="Cerrar modal">
+                <i class="fas fa-times pointer-events-none"></i>
+            </button>
+
+            <div class="overflow-y-auto w-full h-full custom-scrollbar">
+                <img id="modal-img" src="" alt="Proyecto" class="w-full h-64 sm:h-96 object-cover filter grayscale hover:grayscale-0 transition-all duration-500">
+                <div class="p-8 sm:p-12">
+                    <span id="modal-category" class="text-accent-orange text-sm font-medium tracking-wider uppercase mb-2 block">Categoría</span>
+                    <h2 id="modal-title" class="text-3xl sm:text-4xl font-heading font-bold text-white mb-6">Título del Proyecto</h2>
+                    
+                    <div class="grid sm:grid-cols-3 gap-8 mb-8 border-t border-b border-dark-700 py-6">
+                        <div>
+                            <p class="text-sm text-gray-500 uppercase mb-1">Cliente</p>
+                            <p id="modal-client" class="text-white font-medium">Nombre Cliente</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 uppercase mb-1">Año</p>
+                            <p id="modal-year" class="text-white font-medium">2026</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 uppercase mb-1">Rol</p>
+                            <p class="text-white font-medium">Diseño & Ejecución</p>
+                        </div>
+                    </div>
+
+                    <div class="prose prose-invert max-w-none">
+                        <p id="modal-desc" class="text-gray-400 text-lg leading-relaxed mb-6">Descripción detallada...</p>
+                        <h4 class="text-white font-heading text-xl mb-3">Herramientas Utilizadas</h4>
+                        <div id="modal-tools" class="flex flex-wrap gap-2 mb-8"></div>
+                    </div>
+
+                    <button onclick="closeModal()" class="px-8 py-3 rounded-full text-white font-medium bg-gradient-accent btn-primary touch-manipulation">
+                        Cerrar Proyecto
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast UI -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-accent-orange text-white px-6 py-4 rounded-xl shadow-2xl transform translate-y-20 opacity-0 transition-all duration-300 z-[110] flex items-center gap-3 pointer-events-none">
+        <i class="fas fa-check-circle"></i>
+        <span class="font-medium" id="toast-message">Mensaje enviado correctamente.</span>
+    </div>
+
+    <script>
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.classList.add('loader-hidden');
+            }, 500);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            const projects = [
+                {
+                    id: 1,
+                    title: "Empaque Estructural Premium",
+                    category: "identidad",
+                    categoryLabel: "Identidad Corporativa",
+                    img: "https://i.ibb.co/SHjGb97/1-2.jpg",
+                    client: "Confidencial",
+                    year: "2026",
+                    desc: "Diseño de empaque estructural y visual concebido estratégicamente para elevar el valor percibido del producto. La propuesta gráfica fusiona una estética moderna y sofisticada con un diseño funcional de alta precisión, garantizando una experiencia de desempaque (unboxing) memorable que conecta emocionalmente con el consumidor final.",
+                    tools: ["Illustrator", "Photoshop", "Diseño Estructural"]
+                },
+                {
+                    id: 2,
+                    title: "Natural Green - Empaque Sustentable",
+                    category: "identidad",
+                    categoryLabel: "Identidad Corporativa",
+                    img: "https://i.ibb.co/39FNYMCj/1-5.jpg",
+                    client: "Natural Green",
+                    year: "2026",
+                    desc: "Desarrollo integral de empaque sustentable para la línea 'Natural Green'. Este proyecto abarcó desde la ingeniería detallada del troquel estructural (dieline), optimizando al máximo el uso del sustrato de cartón, hasta la creación de una identidad gráfica coherente con los valores ecológicos y orgánicos de la marca.",
+                    tools: ["Illustrator", "Ingeniería de Empaque", "Branding"]
+                },
+                {
+                    id: 3,
+                    title: "BioEssence - Dirección de Arte",
+                    category: "identidad",
+                    categoryLabel: "Identidad Corporativa",
+                    img: "https://i.ibb.co/x8wwSjYH/1-1.jpg",
+                    client: "BioEssence",
+                    year: "2026",
+                    desc: "Dirección de arte y conceptualización visual para el empaque tridimensional de la línea orgánica 'BioEssence'. El desafío principal consistió en plasmar una identidad de marca minimalista y pura sobre un sustrato de cartón kraft, logrando un balance estético limpio, natural y altamente sofisticado que resalta el origen orgánico del producto.",
+                    tools: ["Dirección de Arte", "Branding", "Photoshop"]
+                },
+                {
+                    id: 4,
+                    title: "BioEssence - Renderizado 3D",
+                    category: "identidad",
+                    categoryLabel: "Identidad Corporativa",
+                    img: "https://i.ibb.co/G4P2h2nF/1-3.jpg",
+                    client: "BioEssence",
+                    year: "2026",
+                    desc: "Modelado, renderizado y dirección de arte en 3D para la previsualización del empaque de 'BioEssence'. Con un enfoque meticuloso en la iluminación global y la fidelidad de las materialidades, se plasmó la identidad minimalista sobre el sustrato kraft, manteniendo un balance visual premium que permite visualizar el producto final con absoluto realismo.",
+                    tools: ["Blender", "Render 3D", "After Effects"]
+                },
+                {
+                    id: 5,
+                    title: "Natural Green - Arte Final y Pre-press",
+                    category: "identidad",
+                    categoryLabel: "Identidad Corporativa",
+                    img: "https://i.ibb.co/JWWh4vCz/sa.jpg",
+                    client: "Natural Green",
+                    year: "2026",
+                    desc: "Pieza gráfica técnica que expone la fase de arte final (pre-press) para el empaque de la línea 'Natural Green'. El enfoque principal estuvo en la traducción precisa de la identidad visual a un plano mecánico (dieline), ajustando tolerancias, rebase y especificaciones exactas de color para asegurar una óptima y fiel reproducción industrial en litografía.",
+                    tools: ["Illustrator", "Pre-Press", "Arte Final"]
+                },
+                // Mantenemos un proyecto de UX/UI y Fotografía de tu versión anterior 
+                // para que los otros botones de filtro sigan mostrando contenido.
+                {
+                    id: 6,
+                    title: "App Mobile Design - Finanzas",
+                    category: "uiux",
+                    categoryLabel: "UX/UI",
+                    img: "https://i.ibb.co/twCxnRJ1/personajes.png",
+                    client: "Bogofija Co. / Comunidad Piñón Fijo Bogotá",
+                    year: "2026",
+                    desc: "Diseño de interfaz y experiencia de usuario (UX/UI) para la súper-app integral de la cultura ciclista en Bogotá, unificando los ecosistemas independientes de Bogofija, Bogochicas, Bogoruta y Bogomtb.La aplicación centraliza la identidad del piñón fijo urbano, las salidas colectivas y el e-commerce a través de módulos especializados: el módulo Bogofija actúa como núcleo cultural de la comunidad; Bogo Catálogo opera como la Tienda Oficial optimizada para la compra directa de componentes y mercancía exclusiva; Bogochicas visibiliza y fomenta de forma segura los espacios para mujeres ciclistas; mientras que Bogoruta y Bogomtb integran herramientas interactivas de navegación urbana y ciclomontañismo de aventura. Priorizamos una arquitectura de información fluida que conecta las redes de rodadas con un comercio electrónico intuitivo, todo unificado bajo un sistema de diseño agresivo, urbano y de alta legibilidad en movimiento.",
+                    tools: ["Figma", "Protopie", "Illustrator"]
+                },
+                {
+                    id: 7,
+                    title: "Retrato Editorial Moda",
+                    category: "photo",
+                    categoryLabel: "Fotografía",
+                    img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop",
+                    client: "RevistaDiners",
+                    year: "2024",
+                    desc: "Sesión fotográfica editorial para edición especial de primavera. Concepto basado en luces naturales duras, sombras contrastantes y una dirección de arte minimalista para resaltar texturas y prendas.",
+                    tools: ["Canon R5", "Lightroom", "Photoshop"]
+                }
+            ];
+
+            const grid = document.getElementById('portfolio-grid');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+
+            function renderProjects(filter = 'all') {
+                grid.innerHTML = '';
+                projects.forEach((proj, index) => {
+                    if (filter === 'all' || proj.category === filter) {
+                        const delayClass = `delay-${(index % 3) * 100}`;
+                        
+                        const card = document.createElement('div');
+                        card.className = `group relative rounded-3xl overflow-hidden cursor-pointer aspect-[4/3] bg-dark-900 border border-dark-700 reveal active ${delayClass}`;
+                        card.onclick = () => openModal(proj);
+                        
+                        card.innerHTML = `
+                            <img src="${proj.img}" alt="${proj.title}" class="w-full h-full object-cover filter grayscale transition-all duration-700 group-hover:scale-110 group-hover:grayscale-0" loading="lazy">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90 transition-opacity duration-300"></div>
+                            <div class="absolute inset-0 p-8 flex flex-col justify-end transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 pointer-events-none">
+                                <span class="text-accent-orange text-xs font-bold tracking-wider uppercase mb-2">${proj.categoryLabel}</span>
+                                <h3 class="text-2xl font-heading font-bold text-white mb-1">${proj.title}</h3>
+                                <p class="text-gray-400 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">Ver proyecto <i class="fas fa-arrow-right ml-1 text-accent-orange"></i></p>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    }
+                });
+            }
+
+            renderProjects();
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-white', 'text-black');
+                        b.classList.add('bg-transparent', 'text-gray-400', 'border-dark-700');
+                    });
+                    btn.classList.remove('bg-transparent', 'text-gray-400', 'border-dark-700');
+                    btn.classList.add('active', 'bg-white', 'text-black');
+                    renderProjects(btn.dataset.filter);
+                });
+            });
+
+            /* ==============================================================
+               LÓGICA DEL MENÚ MÓVIL BLINDADA PARA SMARTPHONES
+               ============================================================== */
+            const header = document.getElementById('header');
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileIcon = document.getElementById('mobile-icon');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileAnimElements = document.querySelectorAll('.mobile-link');
+            const mobileAnchorTags = mobileMenu.querySelectorAll('a[href^="#"]'); 
+            const logoLink = document.querySelector('header a[aria-label="Inicio"]');
+            
+            let menuTimeouts = []; 
+            let isMenuOpen = false;
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('glass', 'py-4');
+                    header.classList.remove('py-6');
+                } else {
+                    header.classList.remove('glass', 'py-4');
+                    header.classList.add('py-6');
+                }
+            }, { passive: true });
+
+            function openMenu() {
+                isMenuOpen = true;
+                mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+                mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
+                document.body.style.overflow = 'hidden'; 
+                
+                mobileIcon.classList.remove('fa-bars');
+                mobileIcon.classList.add('fa-times');
+                mobileBtn.style.transform = 'rotate(90deg)';
+                mobileBtn.setAttribute('aria-expanded', 'true');
+
+                menuTimeouts.forEach(clearTimeout);
+                menuTimeouts = [];
+
+                mobileAnimElements.forEach((el, index) => {
+                    el.style.transition = 'none'; 
+                    el.classList.remove('translate-y-0', 'opacity-100');
+                    el.classList.add('translate-y-8', 'opacity-0');
+                    
+                    void el.offsetWidth;
+
+                    const timeout = setTimeout(() => {
+                        el.style.transition = 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+                        el.classList.remove('translate-y-8', 'opacity-0');
+                        el.classList.add('translate-y-0', 'opacity-100');
+                    }, 50 + (index * 40));
+                    menuTimeouts.push(timeout);
+                });
+            }
+
+            function closeMenu() {
+                isMenuOpen = false;
+                mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+                mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+                document.body.style.overflow = ''; 
+                
+                mobileIcon.classList.remove('fa-times');
+                mobileIcon.classList.add('fa-bars');
+                mobileBtn.style.transform = 'rotate(0deg)';
+                mobileBtn.setAttribute('aria-expanded', 'false');
+
+                menuTimeouts.forEach(clearTimeout);
+                menuTimeouts = [];
+
+                mobileAnimElements.forEach(el => {
+                    el.style.transition = 'all 0.3s ease';
+                    el.classList.remove('translate-y-0', 'opacity-100');
+                    el.classList.add('translate-y-8', 'opacity-0');
+                });
+            }
+
+            mobileBtn.addEventListener('click', (e) => {
+                e.preventDefault(); 
+                e.stopPropagation();
+                if (isMenuOpen) closeMenu();
+                else openMenu();
+            });
+
+            mobileAnchorTags.forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    
+                    closeMenu(); 
+
+                    setTimeout(() => {
+                        const targetSection = document.querySelector(targetId);
+                        if (targetSection) {
+                            targetSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }, 150); 
+                });
+            });
+
+            if (logoLink) {
+                logoLink.addEventListener('click', () => {
+                    if(isMenuOpen) closeMenu();
+                });
+            }
+
+            mobileMenu.addEventListener('click', (e) => {
+                if (e.target === mobileMenu || e.target.classList.contains('min-h-full')) {
+                    closeMenu();
+                }
+            });
+            /* ============================================================== */
+
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        
+                        if (target.classList.contains('reveal')) target.classList.add('active');
+                        if (target.classList.contains('skill-bar-fill')) target.classList.add('active');
+
+                        if (target.classList.contains('counter') && !target.classList.contains('counted')) {
+                            animateCounter(target);
+                            target.classList.add('counted');
+                        }
+
+                        if(target.classList.contains('reveal') || target.classList.contains('skill-bar-fill')) {
+                             observer.unobserve(target);
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal, .skill-bar-fill, .counter').forEach(el => observer.observe(el));
+
+            function animateCounter(el) {
+                const target = parseInt(el.getAttribute('data-target'));
+                const duration = 2000; 
+                const frameDuration = 1000 / 60; 
+                const totalFrames = Math.round(duration / frameDuration);
+                let frame = 0;
+
+                const counter = setInterval(() => {
+                    frame++;
+                    const progress = frame / totalFrames;
+                    const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+                    
+                    const currentCount = Math.round(target * easeProgress);
+                    el.innerText = currentCount;
+
+                    if (frame === totalFrames) {
+                        clearInterval(counter);
+                        el.innerText = target;
+                    }
+                }, frameDuration);
+            }
+
+            const typewords = ["Diseñador Gráfico", "Creative Designer", "Motion Graphics", "UI / UX Designer", "Creative Developer"];
+            let tIdx = 0; let cIdx = 0; let isDeleting = false;
+            const typeTextElement = document.getElementById("typewriter");
+            
+            function typeWriter() {
+                const currentWord = typewords[tIdx];
+                
+                if (isDeleting) {
+                    typeTextElement.innerText = currentWord.substring(0, cIdx - 1);
+                    cIdx--;
+                } else {
+                    typeTextElement.innerText = currentWord.substring(0, cIdx + 1);
+                    cIdx++;
+                }
+
+                let typeSpeed = isDeleting ? 50 : 100;
+
+                if (!isDeleting && cIdx === currentWord.length) {
+                    typeSpeed = 2000;
+                    isDeleting = true;
+                } else if (isDeleting && cIdx === 0) {
+                    isDeleting = false;
+                    tIdx = (tIdx + 1) % typewords.length;
+                    typeSpeed = 500;
+                }
+                setTimeout(typeWriter, typeSpeed);
+            }
+            setTimeout(typeWriter, 1000);
+        });
+
+        const projectModal = document.getElementById('project-modal');
+
+        function openModal(data) {
+            document.getElementById('modal-img').src = data.img;
+            document.getElementById('modal-category').innerText = data.categoryLabel;
+            document.getElementById('modal-title').innerText = data.title;
+            document.getElementById('modal-client').innerText = data.client;
+            document.getElementById('modal-year').innerText = data.year;
+            document.getElementById('modal-desc').innerText = data.desc;
+            
+            const toolsContainer = document.getElementById('modal-tools');
+            toolsContainer.innerHTML = '';
+            data.tools.forEach(tool => {
+                toolsContainer.innerHTML += `<span class="px-3 py-1 bg-dark-800 text-gray-400 text-xs rounded-full border border-dark-700">${tool}</span>`;
+            });
+
+            document.body.classList.add('modal-open');
+            projectModal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.body.classList.remove('modal-open');
+            projectModal.classList.remove('active');
+            setTimeout(() => { document.getElementById('modal-img').src = ''; }, 300);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        function showMessage(text = "Mensaje enviado correctamente.") {
+            const toast = document.getElementById('toast');
+            const toastText = document.getElementById('toast-message');
+            toastText.innerText = text;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 4000);
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('form-name').value;
+            const company = document.getElementById('form-company').value || 'No especificada';
+            const email = document.getElementById('form-email').value;
+            const phone = document.getElementById('form-phone').value || 'No proporcionado';
+            const message = document.getElementById('form-message').value;
+            
+            const toEmail = "bogofija@gmail.com";
+            const subject = encodeURIComponent(`Contacto Portafolio - ${name}`);
+            
+            const emailBody = `Hola Sneyder,\n\nHas recibido un nuevo mensaje desde tu portafolio web:\n\n` +
+                              `• Nombre: ${name}\n` +
+                              `• Empresa: ${company}\n` +
+                              `• Correo: ${email}\n` +
+                              `• Teléfono: ${phone}\n\n` +
+                              `Mensaje:\n"${message}"\n\n` +
+                              `Saludos.`;
+                              
+            const body = encodeURIComponent(emailBody);
+            window.location.href = `mailto:${toEmail}?subject=${subject}&body=${body}`;
+            showMessage("Abriendo cliente de correo...");
+            document.getElementById('contact-form').reset();
+        }
+
+        function sendWhatsApp(event) {
+            event.preventDefault();
+            const name = document.getElementById('form-name').value.trim();
+            const company = document.getElementById('form-company').value.trim();
+            const email = document.getElementById('form-email').value.trim();
+            const phone = document.getElementById('form-phone').value.trim();
+            const message = document.getElementById('form-message').value.trim();
+            
+            const targetPhone = "573118113811"; 
+            let text = "";
+            
+            if (name && message) {
+                text = `Hola Sneyder! Mi nombre es *${name}*` + 
+                       (company ? ` de la empresa *${company}*` : '') + `.\n\n` +
+                       `Te escribo para comentarte sobre:\n"${message}"\n\n` +
+                       `Mis datos de contacto:\n` +
+                       `• Correo: ${email || 'No proporcionado'}\n` +
+                       `• Teléfono: ${phone || 'No proporcionado'}`;
+            } else {
+                text = "Hola Sneyder, acabo de ver tu portafolio y me gustaría ponerme en contacto contigo para conocer más sobre tus servicios profesionales de diseño y desarrollo.";
+            }
+            const encodedText = encodeURIComponent(text);
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${targetPhone}&text=${encodedText}`;
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
