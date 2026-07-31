@@ -188,6 +188,30 @@
             padding: 0.5rem 1rem;
             display: inline-block;
         }
+
+        /* --- ACORDEÓN AI ACADEMY --- */
+        .route-chevron {
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .route-chevron.rotate-open {
+            transform: rotate(180deg);
+            color: #f97316;
+        }
+        .route-content {
+            animation: routeOpen 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes routeOpen {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Foco visible accesible para navegación por teclado */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid #f97316;
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body class="antialiased font-sans selection:bg-accent-orange selection:text-black">
@@ -495,21 +519,6 @@
                                 </p>
                             </div>
 
-                            <div class="glass border border-dark-700 p-5 rounded-2xl hover:border-accent-orange transition-colors group flex flex-col relative overflow-hidden">
-                                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-accent opacity-50"></div>
-                                <div class="flex justify-between items-start mb-3">
-                                    <div class="w-8 h-8 bg-dark-900 border border-dark-700 rounded-lg flex items-center justify-center text-accent-orange text-sm animate-pulse">
-                                        <i class="fas fa-brain"></i>
-                                    </div>
-                                    <span class="text-accent-orange text-[10px] uppercase tracking-wider font-bold">En curso</span>
-                                </div>
-                                <h3 class="text-white font-heading font-semibold text-sm mb-1">Claude.ai - Curso Avanzado</h3>
-                                <p class="text-gray-400 text-xs mb-3">Formación Actual</p>
-                                <p class="text-gray-500 text-xs leading-relaxed group-hover:text-gray-300 transition-colors mt-auto">
-                                    Exploración de modelos Claude, ingeniería de prompts avanzada, análisis de datos y flujos conversacionales.
-                                </p>
-                            </div>
-
                             <div class="glass border border-dark-700 p-5 rounded-2xl hover:border-accent-orange transition-colors group flex flex-col">
                                 <div class="flex justify-between items-start mb-3">
                                     <div class="w-8 h-8 bg-dark-900 border border-dark-700 rounded-lg flex items-center justify-center text-white text-sm">
@@ -524,6 +533,30 @@
                                     <span class="text-gray-500 text-[10px] border border-dark-700 rounded px-1.5 py-0.5">Proc. visual</span>
                                     <span class="text-gray-500 text-[10px] border border-dark-700 rounded px-1.5 py-0.5">Com. gráfica</span>
                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- Escuela de AI Academy — tarjeta destacada -->
+                        <div class="mt-4 glass border border-accent-orange/30 rounded-2xl p-6 sm:p-8 card-hover group relative overflow-hidden reveal">
+                            <div class="absolute top-0 right-0 w-48 h-48 bg-accent-orange/10 rounded-full blur-3xl pointer-events-none transition-opacity duration-500 group-hover:opacity-150"></div>
+                            <div class="relative z-10 flex flex-col lg:flex-row lg:items-center gap-6">
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="w-12 h-12 bg-dark-900 border border-dark-700 rounded-xl flex items-center justify-center text-accent-orange text-xl flex-shrink-0">
+                                            <i class="fas fa-graduation-cap"></i>
+                                        </div>
+                                        <h3 class="text-white font-heading font-semibold text-lg sm:text-xl">Escuela de <span class="text-gradient">AI Academy</span></h3>
+                                    </div>
+                                    <p class="text-gray-400 text-sm leading-relaxed mb-4 max-w-md">Formación certificada en Inteligencia Artificial, Automatización, Desarrollo Web y LLMs.</p>
+                                    <div class="flex flex-wrap gap-x-5 gap-y-2">
+                                        <span class="flex items-center gap-1.5 text-xs text-gray-300"><i class="fas fa-check text-accent-orange text-[10px]"></i>5 rutas de aprendizaje</span>
+                                        <span class="flex items-center gap-1.5 text-xs text-gray-300"><i class="fas fa-check text-accent-orange text-[10px]"></i>30 cursos certificados</span>
+                                        <span class="flex items-center gap-1.5 text-xs text-gray-300"><i class="fas fa-check text-accent-orange text-[10px]"></i>66 horas de formación</span>
+                                    </div>
+                                </div>
+                                <button onclick="openAcademyModal()" class="flex-shrink-0 px-6 py-3 rounded-full text-white font-medium bg-gradient-accent btn-primary touch-manipulation whitespace-nowrap w-full lg:w-auto text-center" aria-haspopup="dialog">
+                                    Ver formación completa <i class="fas fa-arrow-right ml-2"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -886,6 +919,188 @@
         </div>
     </div>
 
+    <div id="academy-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 modal-overlay" role="dialog" aria-modal="true" aria-labelledby="academy-modal-title">
+        <div class="absolute inset-0 bg-dark-900/95 backdrop-blur-md" onclick="closeAcademyModal()"></div>
+        <div class="bg-dark-900 border border-dark-700 w-full max-w-5xl max-h-[90vh] rounded-3xl shadow-2xl relative z-10 flex flex-col modal-content overflow-hidden">
+
+            <button onclick="closeAcademyModal()" class="absolute top-4 right-4 w-10 h-10 bg-black/50 hover:bg-accent-orange active:bg-accent-orange text-white rounded-full flex items-center justify-center backdrop-blur-md transition-colors z-20 touch-manipulation" aria-label="Cerrar formación completa">
+                <i class="fas fa-times pointer-events-none"></i>
+            </button>
+
+            <div class="overflow-y-auto w-full h-full custom-scrollbar">
+                <div class="p-6 sm:p-12">
+                    <span class="text-accent-orange text-sm font-medium tracking-wider uppercase mb-2 block">Ruta formativa completa</span>
+                    <h2 id="academy-modal-title" class="text-2xl sm:text-4xl font-heading font-bold text-white mb-3">Escuela de <span class="text-gradient">AI Academy</span></h2>
+                    <p class="text-gray-400 text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">Formación certificada en Inteligencia Artificial, Automatización, Desarrollo Web y LLMs.</p>
+
+                    <div class="flex flex-wrap gap-3 mb-10 pb-8 border-b border-dark-700">
+                        <div class="flex items-center gap-2 px-4 py-2 bg-dark-800 border border-dark-700 rounded-full">
+                            <i class="fas fa-route text-accent-orange text-sm"></i>
+                            <span class="text-white text-xs sm:text-sm font-medium">5 rutas de aprendizaje</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-4 py-2 bg-dark-800 border border-dark-700 rounded-full">
+                            <i class="fas fa-graduation-cap text-accent-orange text-sm"></i>
+                            <span class="text-white text-xs sm:text-sm font-medium">30 cursos certificados</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-4 py-2 bg-dark-800 border border-dark-700 rounded-full">
+                            <i class="fas fa-clock text-accent-orange text-sm"></i>
+                            <span class="text-white text-xs sm:text-sm font-medium">66 horas de formación</span>
+                        </div>
+                    </div>
+
+                    <div id="academy-accordion" class="space-y-4 mb-10">
+
+                        <!-- Ruta 1 -->
+                        <div class="glass border border-dark-700 rounded-2xl overflow-hidden transition-colors hover:border-accent-orange/40">
+                            <button type="button" onclick="toggleRoute(this)" aria-expanded="false" class="w-full flex items-center gap-4 p-5 text-left touch-manipulation">
+                                <span class="flex-shrink-0 w-10 h-10 rounded-xl bg-dark-900 border border-dark-700 flex items-center justify-center text-accent-orange font-heading font-bold text-sm">01</span>
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="text-white font-heading font-semibold text-sm sm:text-base">Adopción Profesional de AI Generativa</h4>
+                                    <div class="flex flex-wrap gap-2 mt-2">
+                                        <span class="text-[11px] text-gray-400 border border-dark-700 rounded-full px-2.5 py-1"><i class="fas fa-clock mr-1"></i>23 horas</span>
+                                        <span class="text-[11px] text-gray-400 border border-dark-700 rounded-full px-2.5 py-1"><i class="fas fa-book mr-1"></i>10 cursos</span>
+                                    </div>
+                                </div>
+                                <i class="fas fa-chevron-down text-gray-500 route-chevron flex-shrink-0"></i>
+                            </button>
+                            <div class="route-content hidden px-5 pb-5">
+                                <div class="pt-4 border-t border-dark-700 grid sm:grid-cols-2 gap-2.5">
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Finanzas Personales con IA</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Introducción a la Inteligencia Artificial</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Inglés con AI</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>ChatGPT</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Claude AI</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Gemini</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Inteligencia Artificial para Finanzas</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Perplexity AI</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Microsoft 365 Copilot</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Claude API</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ruta 2 -->
+                        <div class="glass border border-dark-700 rounded-2xl overflow-hidden transition-colors hover:border-accent-orange/40">
+                            <button type="button" onclick="toggleRoute(this)" aria-expanded="false" class="w-full flex items-center gap-4 p-5 text-left touch-manipulation">
+                                <span class="flex-shrink-0 w-10 h-10 rounded-xl bg-dark-900 border border-dark-700 flex items-center justify-center text-accent-orange font-heading font-bold text-sm">02</span>
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="text-white font-heading font-semibold text-sm sm:text-base">Automatización de Flujos de Trabajo</h4>
+                                    <div class="flex flex-wrap gap-2 mt-2">
+                                        <span class="text-[11px] text-gray-400 border border-dark-700 rounded-full px-2.5 py-1"><i class="fas fa-clock mr-1"></i>11 horas</span>
+                                        <span class="text-[11px] text-gray-400 border border-dark-700 rounded-full px-2.5 py-1"><i class="fas fa-book mr-1"></i>5 cursos</span>
+                                    </div>
+                                </div>
+                                <i class="fas fa-chevron-down text-gray-500 route-chevron flex-shrink-0"></i>
+                            </button>
+                            <div class="route-content hidden px-5 pb-5">
+                                <div class="pt-4 border-t border-dark-700 grid sm:grid-cols-2 gap-2.5">
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Introducción a la IA</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Automatizaciones con n8n</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Automatizaciones con Make</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Generación de Imágenes con IA</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Creación de Videos con IA</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ruta 3 -->
+                        <div class="glass border border-dark-700 rounded-2xl overflow-hidden transition-colors hover:border-accent-orange/40">
+                            <button type="button" onclick="toggleRoute(this)" aria-expanded="false" class="w-full flex items-center gap-4 p-5 text-left touch-manipulation">
+                                <span class="flex-shrink-0 w-10 h-10 rounded-xl bg-dark-900 border border-dark-700 flex items-center justify-center text-accent-orange font-heading font-bold text-sm">03</span>
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="text-white font-heading font-semibold text-sm sm:text-base">Creación de Aplicaciones Web con IA</h4>
+                                    <div class="flex flex-wrap gap-2 mt-2">
+                                        <span class="text-[11px] text-gray-400 border border-dark-700 rounded-full px-2.5 py-1"><i class="fas fa-clock mr-1"></i>16 horas</span>
+                                        <span class="text-[11px] text-gray-400 border border-dark-700 rounded-full px-2.5 py-1"><i class="fas fa-book mr-1"></i>8 cursos</span>
+                                    </div>
+                                </div>
+                                <i class="fas fa-chevron-down text-gray-500 route-chevron flex-shrink-0"></i>
+                            </button>
+                            <div class="route-content hidden px-5 pb-5">
+                                <div class="pt-4 border-t border-dark-700 grid sm:grid-cols-2 gap-2.5">
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Introducción a IA</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Prompt Engineering</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Lovable</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Lanzamiento y Monetización con Lovable</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Creación de Webs con v0</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Supabase</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Supabase Avanzado</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Vibe Coding con Google AI Studio</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ruta 4 -->
+                        <div class="glass border border-dark-700 rounded-2xl overflow-hidden transition-colors hover:border-accent-orange/40">
+                            <button type="button" onclick="toggleRoute(this)" aria-expanded="false" class="w-full flex items-center gap-4 p-5 text-left touch-manipulation">
+                                <span class="flex-shrink-0 w-10 h-10 rounded-xl bg-dark-900 border border-dark-700 flex items-center justify-center text-accent-orange font-heading font-bold text-sm">04</span>
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="text-white font-heading font-semibold text-sm sm:text-base">Ingeniería de Aplicaciones con LLMs y Agentes</h4>
+                                    <div class="flex flex-wrap gap-2 mt-2">
+                                        <span class="text-[11px] text-gray-400 border border-dark-700 rounded-full px-2.5 py-1"><i class="fas fa-clock mr-1"></i>5 horas</span>
+                                        <span class="text-[11px] text-gray-400 border border-dark-700 rounded-full px-2.5 py-1"><i class="fas fa-book mr-1"></i>1 curso</span>
+                                    </div>
+                                </div>
+                                <i class="fas fa-chevron-down text-gray-500 route-chevron flex-shrink-0"></i>
+                            </button>
+                            <div class="route-content hidden px-5 pb-5">
+                                <div class="pt-4 border-t border-dark-700 grid sm:grid-cols-2 gap-2.5">
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Fundamentos de LLMs</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ruta 5 -->
+                        <div class="glass border border-dark-700 rounded-2xl overflow-hidden transition-colors hover:border-accent-orange/40">
+                            <button type="button" onclick="toggleRoute(this)" aria-expanded="false" class="w-full flex items-center gap-4 p-5 text-left touch-manipulation">
+                                <span class="flex-shrink-0 w-10 h-10 rounded-xl bg-dark-900 border border-dark-700 flex items-center justify-center text-accent-orange font-heading font-bold text-sm">05</span>
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="text-white font-heading font-semibold text-sm sm:text-base">Desarrollo de Software con Agentes de IA</h4>
+                                    <div class="flex flex-wrap gap-2 mt-2">
+                                        <span class="text-[11px] text-gray-400 border border-dark-700 rounded-full px-2.5 py-1"><i class="fas fa-clock mr-1"></i>11 horas</span>
+                                        <span class="text-[11px] text-gray-400 border border-dark-700 rounded-full px-2.5 py-1"><i class="fas fa-book mr-1"></i>6 cursos</span>
+                                    </div>
+                                </div>
+                                <i class="fas fa-chevron-down text-gray-500 route-chevron flex-shrink-0"></i>
+                            </button>
+                            <div class="route-content hidden px-5 pb-5">
+                                <div class="pt-4 border-t border-dark-700 grid sm:grid-cols-2 gap-2.5">
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Introducción a IA</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Codex</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Claude Code</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>Cursor AI</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>GitHub Copilot</span>
+                                    <span class="flex items-center gap-2 text-sm text-gray-400"><i class="fas fa-check-circle text-accent-orange text-xs"></i>OpenAI API</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Bloque de cierre: Formación finalizada -->
+                    <div class="relative overflow-hidden rounded-3xl bg-gradient-accent p-8 sm:p-10 text-center">
+                        <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+                        <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-black/10 rounded-full blur-2xl pointer-events-none"></div>
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 mx-auto bg-white/15 rounded-2xl flex items-center justify-center text-3xl mb-4 backdrop-blur-sm">🎓</div>
+                            <h3 class="text-xl sm:text-2xl font-heading font-bold text-white mb-2">Formación Finalizada con Éxito</h3>
+                            <p class="text-white/90 text-sm sm:text-base max-w-xl mx-auto mb-6 leading-relaxed">Todos los cursos fueron completados satisfactoriamente y cuentan con su respectivo certificado.</p>
+                            <a href="https://drive.google.com/drive/folders/1mQQoxK0DhSZwJ9q2Hvi9GzXBtTRTfJFl?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-white text-accent-hover font-semibold hover:bg-dark-900 hover:text-white transition-colors btn-primary touch-manipulation">
+                                <i class="fas fa-award"></i> Ver Diplomas
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-8">
+                        <button onclick="closeAcademyModal()" class="px-8 py-3 rounded-full text-gray-300 font-medium border border-dark-700 hover:border-accent-orange hover:text-white transition-colors touch-manipulation">
+                            <i class="fas fa-arrow-left mr-2"></i> Volver
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast UI -->
     <div id="toast" class="fixed bottom-6 right-6 bg-accent-orange text-white px-6 py-4 rounded-xl shadow-2xl transform translate-y-20 opacity-0 transition-all duration-300 z-[110] flex items-center gap-3 pointer-events-none">
         <i class="fas fa-check-circle"></i>
@@ -1238,8 +1453,46 @@
         }
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
+            if (e.key === 'Escape') {
+                closeModal();
+                closeAcademyModal();
+            }
         });
+
+        /* --- ESCUELA DE AI ACADEMY --- */
+        const academyModal = document.getElementById('academy-modal');
+
+        function openAcademyModal() {
+            document.body.classList.add('modal-open');
+            academyModal.classList.add('active');
+        }
+
+        function closeAcademyModal() {
+            document.body.classList.remove('modal-open');
+            academyModal.classList.remove('active');
+        }
+
+        function toggleRoute(button) {
+            const item = button.parentElement;
+            const content = item.querySelector('.route-content');
+            const chevron = item.querySelector('.route-chevron');
+            const isOpen = !content.classList.contains('hidden');
+
+            // Comportamiento de acordeón: cierra las demás rutas abiertas
+            document.querySelectorAll('#academy-accordion .route-content').forEach((el) => {
+                if (el !== content) el.classList.add('hidden');
+            });
+            document.querySelectorAll('#academy-accordion .route-chevron').forEach((el) => {
+                if (el !== chevron) el.classList.remove('rotate-open');
+            });
+            document.querySelectorAll('#academy-accordion button[aria-expanded]').forEach((btn) => {
+                if (btn !== button) btn.setAttribute('aria-expanded', 'false');
+            });
+
+            content.classList.toggle('hidden', isOpen);
+            chevron.classList.toggle('rotate-open', !isOpen);
+            button.setAttribute('aria-expanded', String(!isOpen));
+        }
 
         function showMessage(text = "Mensaje enviado correctamente.") {
             const toast = document.getElementById('toast');
